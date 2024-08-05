@@ -1,0 +1,28 @@
+# Use an official Python runtime as a parent image
+FROM python:3.8-slim
+
+# Install system dependencies including Chromium and dependencies for Selenium
+RUN apt-get update && apt-get install -y \
+    chromium \
+    chromium-driver \
+    libasound2-dev \
+    libespeak-dev \
+    wget \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set up environment variables for Chromium
+ENV CHROME_BIN=/usr/bin/chromium
+ENV CHROME_DRIVER=/usr/bin/chromedriver
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install Python packages
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Run the main script
+CMD ["python", "main.py"]

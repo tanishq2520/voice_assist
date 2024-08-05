@@ -1,0 +1,7 @@
+tkinter
+Pillow
+pyttsx3
+speechrecognition
+selenium
+requests
+pyaudio
